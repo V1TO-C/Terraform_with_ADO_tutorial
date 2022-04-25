@@ -19,6 +19,10 @@ provider "azurerm" {
   features {}
 }
 
+variable "imageBuildId" {
+  type = string
+  description = "Latest build Id of docker image."
+}
 resource "azurerm_resource_group" "tf_test" {
   name     = "tf_weatherApi"
   location = "West Europe"
@@ -35,7 +39,7 @@ resource "azurerm_container_group" "tfcg_test" {
 
   container {
     name   = "weatherapi"
-    image  = "v1to/weatherapi:96"
+    image  = "v1to/weatherapi:${var.imageBuildId}"
     cpu    = "1"
     memory = "1"
 
